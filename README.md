@@ -4,12 +4,12 @@
 
 Este projeto implementa uma infraestrutura básica na AWS utilizando **Terraform**, contendo:
 
-* Uma **VPC customizada**
-* Um **cluster Amazon EKS**
-* **Subnets públicas e privadas** em múltiplas AZs
-* **NAT Gateway** para saída controlada à internet
-* **Node Group gerenciado**
-* **Políticas IAM** seguindo o princípio do menor privilégio
+- Uma **VPC customizada**
+- Um **cluster Amazon EKS**
+- Subnets públicas e privadas em múltiplas AZs
+- NAT Gateway para saída controlada à internet
+- Node Group gerenciado
+- Políticas IAM seguindo o princípio do menor privilégio
 
 ---
 
@@ -17,15 +17,15 @@ Este projeto implementa uma infraestrutura básica na AWS utilizando **Terraform
 
 A infraestrutura é composta por:
 
-* **VPC** com CIDR customizado
-* **Subnets públicas**: Load Balancers e NAT Gateway
-* **Subnets privadas**: Worker Nodes do EKS
-* **Internet Gateway** para acesso externo
-* **NAT Gateway** para acesso à internet a partir das subnets privadas
-* **Amazon EKS** com Node Group gerenciado
-* **IAM Roles** separadas para Cluster e Nodes
+- **VPC** com CIDR customizado
+- **Subnets públicas**: Load Balancers e NAT Gateway
+- **Subnets privadas**: Worker Nodes do EKS
+- **Internet Gateway** para acesso externo
+- **NAT Gateway** para acesso à internet a partir das subnets privadas
+- **Amazon EKS** com Node Group gerenciado
+- **IAM Roles** separadas para Cluster e Nodes
 
-📌 Um diagrama da arquitetura pode ser encontrado na pasta `/diagrams`.
+> Um diagrama da arquitetura pode ser encontrado na pasta `/diagrams`.
 
 ---
 
@@ -39,18 +39,24 @@ terraform/
 ├── variables.tf     # Variáveis reutilizáveis
 ├── outputs.tf       # Outputs importantes (endpoint, cluster name)
 └── provider.tf      # Configuração do provider AWS
+
 ```
 
 ---
 
 ## ⚙️ Decisões Técnicas
 
-* A VPC foi criada do zero para garantir maior controle sobre a topologia de rede e facilitar a integração com o Amazon EKS
-* Os Worker Nodes do EKS são executados exclusivamente em **subnets privadas**, reduzindo a superfície de exposição
-* Um **NAT Gateway** foi utilizado para permitir acesso seguro à internet a partir das subnets privadas
-* Foram utilizadas **políticas gerenciadas oficiais da AWS** sempre que possível, reduzindo complexidade operacional
-* As responsabilidades de **IAM** foram claramente separadas entre o cluster EKS e os node groups
-* O Terraform foi adotado como ferramenta de **IaC**, garantindo reprodutibilidade, versionamento e padronização da infraestrutura
+- A **VPC** foi criada do zero para garantir maior controle sobre a topologia de rede e facilitar a integração com o Amazon EKS.
+
+- Os **Worker Nodes do EKS** são executados exclusivamente em subnets privadas, reduzindo a superfície de exposição.
+
+- Um **NAT Gateway** foi utilizado para permitir acesso seguro à internet a partir das subnets privadas.
+
+- Foram utilizadas **políticas gerenciadas oficiais da AWS** sempre que possível, reduzindo complexidade operacional.
+
+- As responsabilidades de IAM foram claramente separadas entre o cluster EKS e os node groups.
+
+- O **Terraform** foi adotado como ferramenta de IaC para garantir reprodutibilidade, versionamento e padronização da infraestrutura.
 
 ---
 
@@ -59,8 +65,7 @@ terraform/
 * Ajuste fino das permissões IAM necessárias para a execução do Terraform
 * Criação do NAT Gateway exigindo permissões adicionais relacionadas a Elastic IP
 * Tempo de propagação de permissões IAM durante os testes iniciais
-
-Esses desafios foram resolvidos por meio da criação de políticas customizadas, validação contínua com `terraform validate` e revisão incremental do `terraform plan`.
+* Esses desafios foram resolvidos por meio da criação de políticas customizadas, validação contínua com `terraform validate` e revisão incremental do `terraform plan`.
 
 ---
 
@@ -105,11 +110,11 @@ AsgInstanceLaunchFailures: This account is currently blocked and not recognized 
 
 ## ▶️ Como Executar
 
-```bash
-cd terraform
+```cd terraform
 terraform init
 terraform validate
 terraform plan
+# terraform apply (apenas se a conta estiver desbloqueada)
 ```
 
 > ⚠️ Certifique-se de que a região AWS configurada no provider seja compatível com o EKS (ex: `us-east-1`).
