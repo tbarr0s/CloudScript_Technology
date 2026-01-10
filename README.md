@@ -182,3 +182,12 @@ terraform plan
 - **Auto Scaling** baseado em métricas customizadas  
 - Habilitação de logs e métricas avançadas  
 
+
+```md
+## 🏗 Diagrama de Arquitetura
+
+O diagrama abaixo representa a infraestrutura provisionada via Terraform,
+utilizando EKS com Fargate e subnets privadas.
+
+📐 O diagrama como código está disponível em:
+`/diagrams/architecture.md`
